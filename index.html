@@ -9,27 +9,57 @@
 </head>
 
 <body>
-    <div id="app">
-            <h1 v-once>{{title}}</h1>
-        <input type="text" v-on:input="changeTitle">
-        <h2>{{title}}</h2>
-        <p>{{message()}}</p>
+    <div id="app" v-on:mousemove="updateCoordinates">
+        <h1 v-once>{{title}}</h1>
+
+        <h2>Fisrt steps with Vue functions</h2>
+        <input type="text" v-on:input="changeName" v-on:keyup.enter="alertMe" />
+        <span> - {{ name }}</span>
+        
+        <h3 v-on:mousemove="updateCoordinates">Coordinates</h3>
+        <p>x: {{x}} / y: {{y}}</p>
+
+        <h2>Link example</h2>
         <a v-bind:href="googleLink">Link to Google</a>
+        
+        <h2>Binding with v-model</h2>
+        <input v-model="name" />
+
+        <h2>Output example</h2>
+        <p>Method: {{ nameLengthMethod() }} <span style="color:goldenrod">/ Computed: {{ nameLengthComputed }}</span></p>
     </div>
 
     <script>
         new Vue({
             el: '#app',
             data: {
-                title: 'Hello World!',
-                googleLink: 'http://google.com'
+                title: 'Study of VueJS!',
+                name: 'default name',
+                googleLink: 'http://google.com',
+                x: 0,
+                y: 0
+            },
+            computed:{
+                // methods created here are only called if it is necessary to re-calculate the result of output.
+                nameLengthComputed: function(){
+                    console.log('nameLengthComputed()');
+                    return this.name.length > 5 ? "'name' is bigger than 5" : "'name' is NOT bigger than 5."; 
+                }
             },
             methods: {
-                changeTitle: function(event) {
-                    this.title = event.target.value;
+                changeName: function(event) {
+                    this.name = event.target.value;
                 },
-                message: function(){
-                    return 'it is a message of test!!';
+                updateCoordinates: function(event){
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                alertMe: function(event){
+                    alert(event.target.value);
+                },
+                nameLengthMethod: function(){
+                    console.log('nameLengthMethod()');
+                    return this.name.length > 5 ? "'name' is bigger than 5" : "'name' is NOT bigger than 5."; 
                 }
             }
         });
