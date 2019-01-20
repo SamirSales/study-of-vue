@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Vue JS</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="main.css">
     <script src="vue.js"></script>
 </head>
 
@@ -20,33 +20,36 @@
         <p>x: {{x}} / y: {{y}}</p>
 
         <h2>Link example</h2>
-        <a v-bind:href="googleLink">Link to Google</a>
+        <p><a v-bind:href="googleLink">Link to Google</a></p>
+        <p><a :href="googleLink">Link to Google (short way)</a></p>
         
         <h2>Binding with v-model</h2>
         <input v-model="name" />
 
         <h2>Output example</h2>
         <p>Method: {{ nameLengthMethod() }} <span style="color:goldenrod">/ Computed: {{ nameLengthComputed }}</span></p>
+
+        <h2>Click Button</h2>
+        <input type="button" v-on:click="alertMe" value="Click me!"/>
+        <input type="button" @click="alertMe" value="Click me! (short way)!"/>
+
+        <h2>Working with CSS</h2>
+        <div class="square" :class='{red: attachRed}' @click="attachRed = !attachRed;"></div>
     </div>
 
     <script>
         new Vue({
             el: '#app',
             data: {
-                title: 'Study of VueJS!',
+                title: 'Interact with DOM using VueJS!',
                 name: 'default name',
                 googleLink: 'http://google.com',
                 x: 0,
-                y: 0
-            },
-            computed:{
-                // methods created here are only called if it is necessary to re-calculate the result of output.
-                nameLengthComputed: function(){
-                    console.log('nameLengthComputed()');
-                    return this.name.length > 5 ? "'name' is bigger than 5" : "'name' is NOT bigger than 5."; 
-                }
+                y: 0,
+                attachRed: false
             },
             methods: {
+                // methods of  this Vue Instance
                 changeName: function(event) {
                     this.name = event.target.value;
                 },
@@ -58,8 +61,21 @@
                     alert(event.target.value);
                 },
                 nameLengthMethod: function(){
-                    console.log('nameLengthMethod()');
                     return this.name.length > 5 ? "'name' is bigger than 5" : "'name' is NOT bigger than 5."; 
+                }
+            },
+            computed:{
+                // Dependent properties
+                // methods created here are only called if it is necessary to re-calculate the result of output.
+                nameLengthComputed: function(){
+                    console.log('nameLengthComputed()');
+                    return this.name.length > 5 ? "'name' is bigger than 5" : "'name' is NOT bigger than 5."; 
+                }
+            },
+            watch: {
+                // Execute code upon data changes
+                name: function(value){
+                    console.log("watch name = ", value);
                 }
             }
         });
