@@ -24,8 +24,14 @@ p{
     height: 60px;
     width: 120px;
     background-color: #444444;
+    float: left;
+    margin: 4px;
 }
 
 .red {
     background-color: red;
+}
+
+.blue {
+    background-color: blue;
 }

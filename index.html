@@ -35,6 +35,7 @@
 
         <h2>Working with CSS</h2>
         <div class="square" :class='{red: attachRed}' @click="attachRed = !attachRed;"></div>
+        <div class="square" :class='divClasses' @click="attachRed = !attachRed;"></div>
     </div>
 
     <script>
@@ -70,6 +71,12 @@
                 nameLengthComputed: function(){
                     console.log('nameLengthComputed()');
                     return this.name.length > 5 ? "'name' is bigger than 5" : "'name' is NOT bigger than 5."; 
+                },
+                divClasses: function(){
+                    return {
+                        red: this.attachRed,
+                        blue: !this.attachRed
+                    }
                 }
             },
             watch: {
