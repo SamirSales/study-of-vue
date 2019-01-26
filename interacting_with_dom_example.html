@@ -36,6 +36,7 @@
         <h2>Working with CSS</h2>
         <div class="square" :class='{red: attachRed}' @click="attachRed = !attachRed;"></div>
         <div class="square" :class='divClasses' @click="attachRed = !attachRed;"></div>
+        <div class="square" :class='[divClasses, {red: attachRed}]' @click="attachRed = !attachRed;"></div>
     </div>
 
     <script>
