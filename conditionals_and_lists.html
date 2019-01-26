@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue JS</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 v-once>{{title}}</h1>
+
+        <h2>Using <b>v-if</b>, <b>v-else</b> and <b>v-show</b></h2>
+        <p v-if='show'>You can see me!</p>
+        <p v-else><span style="color:blueviolet">And now you see me!</span></p>
+        <p v-show='show' style="color:olivedrab"><i>Hide</i> is different of <i>Detash</i></p>
+
+        <template v-if="show">
+            <h3>Using <i>Template</i></h3>
+            <p>Using template is good way to manipulate several elements without to create a <i>DIV</i> to put all inside.</p>
+        </template>
+
+        <button @click="show = !show" >Switch 'show' value</button>
+
+        <h2>Using <b>v-else-if</b> (<i>Version 2.1.0+</i>)</h2>
+        <div v-if="type === 'A'">A</div>
+        <div v-else-if="type === 'B'">B</div>
+        <div v-else-if="type === 'C'">C</div>
+        <div v-else>Not A/B/C</div>
+
+        <h2>Using <b>v-for</b></h2>
+        <ul v-for="(person, index) in persons">
+            <li>#{{index}} <span v-for="value in person"> {{value}} |</span></li>
+        </ul>
+
+        <h3>Another way...</h3>
+        <ul v-for="(person, index) in persons">
+            <li><span v-for="(value, key, index) in person">({{value}}, {{key}}, {{index}}) </span></li>
+        </ul>
+
+        <h2>Loop with numbers</h2>
+        <p><span v-for="n in 30">{{ n*2 }} </span></p>
+
+        <h2>Keeping Track of Elements</h2>
+        <ul v-for="(person, index) in persons" :key="perosn">
+            <li>#{{index}} {{person.name}} ({{person.age}})</li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'Using Conditionals and Rendering Lists',
+                show: true,
+                type: null,
+                persons: [
+                    {name: 'Samir', age: 29, color: 'green'},
+                    {name: 'John', age: 26, color: 'red'},
+                    {name: 'Andrio', age: 28, color: 'blue'},
+                ]
+            }
+        });
+    </script>
+</body>
+</html>
